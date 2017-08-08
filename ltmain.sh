@@ -1,5 +1,5 @@
 
-# libtool (GNU libtool 1.3332 2011-04-10) 2.4.1a
+# libtool (GNU libtool) 2.4.2
 # Written by Gordon Matzigkeit <gord@gnu.ai.mit.edu>, 1996
 
 # Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2003, 2004, 2005, 2006,
@@ -41,6 +41,7 @@
 #       --quiet, --silent    don't print informational messages
 #       --no-quiet, --no-silent
 #                            print informational messages (default)
+#       --no-warn            don't display warning messages
 #       --tag=TAG            use configuration variables from tag TAG
 #   -v, --verbose            print more informational messages than default
 #       --no-verbose         don't print the extra informational messages
@@ -69,7 +70,7 @@
 #         compiler:		$LTCC
 #         compiler flags:		$LTCFLAGS
 #         linker:		$LD (gnu? $with_gnu_ld)
-#         $progname:	(GNU libtool 1.3332 2011-04-10) 2.4.1a
+#         $progname:	(GNU libtool) 2.4.2
 #         automake:	$automake_version
 #         autoconf:	$autoconf_version
 #
@@ -79,9 +80,9 @@
 
 PROGRAM=libtool
 PACKAGE=libtool
-VERSION=2.4.1a
-TIMESTAMP=" 1.3332 2011-04-10"
-package_revision=1.3332
+VERSION=2.4.2
+TIMESTAMP=""
+package_revision=1.3337
 
 # Be Bourne compatible
 if test -n "${ZSH_VERSION+set}" && (emulate sh) >/dev/null 2>&1; then
@@ -1047,6 +1048,7 @@ opt_finish=false
 opt_help=false
 opt_help_all=false
 opt_silent=:
+opt_warning=:
 opt_verbose=:
 opt_silent=false
 opt_verbose=false
@@ -1113,6 +1115,10 @@ esac
 			;;
       --no-silent|--no-quiet)
 			opt_silent=false
+func_append preserve_args " $opt"
+			;;
+      --no-warning|--no-warn)
+			opt_warning=false
 func_append preserve_args " $opt"
 			;;
       --no-verbose)
@@ -3467,7 +3473,7 @@ static const void *lt_preloaded_setup() {
 	  # linked before any other PIC object.  But we must not use
 	  # pic_flag when linking with -static.  The problem exists in
 	  # FreeBSD 2.2.6 and is fixed in FreeBSD 3.1.
-	  *-*-freebsd2*|*-*-freebsd3.0*|*-*-freebsdelf3.0*)
+	  *-*-freebsd2.*|*-*-freebsd3.0*|*-*-freebsdelf3.0*)
 	    pic_flag_for_symtable=" $pic_flag -DFREEBSD_WORKAROUND" ;;
 	  *-*-hpux*)
 	    pic_flag_for_symtable=" $pic_flag"  ;;
@@ -7324,6 +7330,7 @@ func_mode_link ()
 	  # which has an extra 1 added just for fun
 	  #
 	  case $version_type in
+	  # correct linux to gnu/linux during the next big refactor
 	  darwin|linux|osf|windows|none)
 	    func_arith $number_major + $number_minor
 	    current=$func_arith_result
@@ -7440,7 +7447,7 @@ func_mode_link ()
 	  versuffix="$major.$revision"
 	  ;;
 
-	linux)
+	linux) # correct to gnu/linux during the next big refactor
 	  func_arith $current - $age
 	  major=.$func_arith_result
 	  versuffix="$major.$age.$revision"
@@ -8063,7 +8070,7 @@ EOF
 	    elif test -n "$runpath_var"; then
 	      case "$perm_rpath " in
 	      *" $libdir "*) ;;
-	      *) func_apped perm_rpath " $libdir" ;;
+	      *) func_append perm_rpath " $libdir" ;;
 	      esac
 	    fi
 	  done
