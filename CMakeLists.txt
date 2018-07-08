@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.6)
 
-project(ENET VERSION 1.3.13 LANGUAGES C)
+project(ENET VERSION 1.3.14 LANGUAGES C)
 
 # Some boilerplate to setup nice output directories
 set(CMAKE_INSTALL_BINDIR bin CACHE STRING "Installation runtime subdirectory")
