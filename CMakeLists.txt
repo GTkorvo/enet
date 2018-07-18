@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.3)
 
 project(ENET VERSION 1.3.14 LANGUAGES C)
 
