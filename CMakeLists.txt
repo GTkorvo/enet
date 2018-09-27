@@ -154,12 +154,14 @@ install(TARGETS enet
 # Setup packaging and configs
  
 # Add all targets to the build-tree export set
-export(TARGETS enet NAMESPACE enet::
-  FILE "${PROJECT_BINARY_DIR}/enet-targets.cmake")
+include(CMakePackageConfigHelpers)
+write_basic_package_version_file(
+  "${PROJECT_BINARY_DIR}/enet-config-version.cmake"
+  COMPATIBILITY SameMajorVersion)
 configure_file(enet-config.cmake.in
   "${PROJECT_BINARY_DIR}/enet-config.cmake" @ONLY)
-configure_file(enet-config-version.cmake.in
-  "${PROJECT_BINARY_DIR}/enet-config-version.cmake" @ONLY)
+export(TARGETS enet NAMESPACE enet::
+  FILE "${PROJECT_BINARY_DIR}/enet-targets.cmake")
  
 # Install the enet-config.cmake and enet-config-version.cmake
 install(FILES
