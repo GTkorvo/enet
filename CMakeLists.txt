@@ -34,7 +34,7 @@ endif()
 
 include(CMakeDependentOption)
 
-# Setup shared library defaults.  If explicitly specified somehow, then default 
+# Setup shared library defaults.  If explicitly specified somehow, then default
 # to that.  Otherwise base the default on whether or not shared libs are even
 # supported.
 get_property(SHARED_LIBS_SUPPORTED GLOBAL PROPERTY TARGET_SUPPORTS_SHARED_LIBS)
@@ -44,7 +44,7 @@ cmake_dependent_option(BUILD_SHARED_LIBS
 )
 mark_as_advanced(BUILD_SHARED_LIBS)
 
-# Setup PIC defaults.  If explicitly specified somehow, then default 
+# Setup PIC defaults.  If explicitly specified somehow, then default
 # to that.  Otherwise base the default on whether or not shared libs are even
 # supported.
 if(DEFINED ENET_ENABLE_PIC)
@@ -152,7 +152,7 @@ install(TARGETS enet
 )
 
 # Setup packaging and configs
- 
+
 # Add all targets to the build-tree export set
 include(CMakePackageConfigHelpers)
 write_basic_package_version_file(
@@ -162,13 +162,13 @@ configure_file(enet-config.cmake.in
   "${PROJECT_BINARY_DIR}/enet-config.cmake" @ONLY)
 export(TARGETS enet NAMESPACE enet::
   FILE "${PROJECT_BINARY_DIR}/enet-targets.cmake")
- 
+
 # Install the enet-config.cmake and enet-config-version.cmake
 install(FILES
   "${PROJECT_BINARY_DIR}/enet-config.cmake"
   "${PROJECT_BINARY_DIR}/enet-config-version.cmake"
   DESTINATION "${CMAKE_INSTALL_CMAKEDIR}")
- 
+
 # Install the export set for use with the install-tree
 install(EXPORT enet-targets NAMESPACE enet::
   DESTINATION "${CMAKE_INSTALL_CMAKEDIR}")
