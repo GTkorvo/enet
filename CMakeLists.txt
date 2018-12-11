@@ -44,24 +44,6 @@ cmake_dependent_option(BUILD_SHARED_LIBS
 )
 mark_as_advanced(BUILD_SHARED_LIBS)
 
-# Setup PIC defaults.  If explicitly specified somehow, then default
-# to that.  Otherwise base the default on whether or not shared libs are even
-# supported.
-if(DEFINED ENET_ENABLE_PIC)
-  set(ENET_ENABLE_PIC_DEFAULT ${ENET_ENABLE_PIC})
-elseif(DEFINED CMAKE_POSITION_INDEPENDENT_CODE)
-  set(ENET_ENABLE_PIC_DEFAULT ${CMAKE_POSITION_INDEPENDENT_CODE})
-else()
-  set(ENET_ENABLE_PIC_DEFAULT ${SHARED_LIBS_SUPPORTED})
-endif()
-cmake_dependent_option(ENET_ENABLE_PIC
-  "Build with Position Independent Code" ${ENET_ENABLE_PIC_DEFAULT}
-  "SHARED_LIBS_SUPPORTED" OFF
-)
-mark_as_advanced(ENET_ENABLE_PIC)
-set(CMAKE_POSITION_INDEPENDENT_CODE ${ENET_ENABLE_PIC})
-mark_as_advanced(CMAKE_POSITION_INDEPENDENT_CODE)
-
 include(CheckFunctionExists)
 check_function_exists(getaddrinfo HAS_GETADDRINFO)
 check_function_exists(getnameinfo HAS_GETNAMEINFO)
