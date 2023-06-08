@@ -92,12 +92,6 @@ int main() { return sizeof(socklen_t); } ]=]
   HAS_SOCKLEN_T
 )
 
-if(MSVC)
-	add_definitions(-W3)
-else()
-	add_definitions(-Wno-error)
-endif()
-
 set(ENET_LIBRARY_PREFIX "" CACHE STRING
   "Prefix to prepend to the output library name")
 mark_as_advanced(ENET_LIBRARY_PREFIX)
